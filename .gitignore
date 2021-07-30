@@ -1,0 +1,63 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Java template
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+!.gitignore
+
+.idea
+tx-manager/target/
+jsjb-common/target/
+jsjb-service-auth/target/
+jsjb-service-gateway/target/
+jsjb-service-sys/target/
+
+*.iml
+
+*/target/*
+jsjb-po/target/generated-sources/
+jsjb-redis-api/target/generated-sources/
+jsjb-service-ac/target/classes/META-INF/
+jsjb-service-ac/target/classes/application.yml
+jsjb-service-ac/target/classes/bootstrap.yml
+jsjb-service-ac/target/classes/logback-spring.xml
+jsjb-service-ac/target/classes/messages_zh_CN.properties
+jsjb-service-ac/target/classes/public.txt
+jsjb-service-ac/target/classes/sql/
+jsjb-service-ac/target/generated-sources/
+jsjb-service-business/target/generated-sources/
+jsjb-service-kdxf/target/generated-sources/
+jsjb-service-knowledge/target/generated-sources/
+jsjb-service-schedule-report/target/generated-sources/
+jsjb-service-schedule/target/classes/application.yml
+jsjb-service-schedule/target/classes/bootstrap.yml
+jsjb-service-schedule/target/classes/logback-spring.xml
+jsjb-service-schedule/target/classes/messages_zh_CN.properties
+jsjb-service-schedule/target/classes/public.txt
+jsjb-service-schedule/target/generated-sources/
+jsjb-service-seating-manage/target/generated-sources/
+jsjb-service-system-manage/target/classes/mapper/
+jsjb-service-system-manage/target/generated-sources/
+
+/*/src/main/resources/rebel.xml

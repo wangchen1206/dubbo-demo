@@ -1,0 +1,1 @@
+onlyFirst=com.cc.learn.dubbo.spi.loadbalance.OnlyFirstLoadBalancer
