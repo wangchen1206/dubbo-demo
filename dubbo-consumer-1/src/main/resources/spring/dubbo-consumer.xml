@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+http://dubbo.apache.org/schema/dubbo
+http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+    <dubbo:application name="dubbo-consumer-1" owner="CC">
+        <dubbo:parameter key="qos-enable" value="true"></dubbo:parameter>
+        <dubbo:parameter key="qos-port" value="11111"></dubbo:parameter>
+        <dubbo:parameter key="qos-accept-foreign-ip" value="true"></dubbo:parameter>
+    </dubbo:application>
+    <dubbo:registry id="zookeeperRegistry" address="zookeeper://127.0.0.1:2181"/>
+    <!--consumer 配置
+    1.timeout:调用服务时间
+    2.mock:用于在方法调用出现错误时，当做服务降级来统一对外返回结果，这个是系统级别的
+    3.check: 用于在启动时，检查生产者是否有该服务。我们一般都会将这个值设置为false，不让其进
+    行检查。因为如果出现模块之间循环引用的话，那么则可能会出现相互依赖，都进行check的话，
+    那么这两个服务永远也启动不起来
+    -->
+    <!--<dubbo:consumer timeout="2000" check="false"></dubbo:consumer>-->
+    <!--1. id : 指定该Bean在注册到Spring中的id。
+    2. interface: 服务接口名
+    3. version : 指定当前服务版本，与服务提供者的版本一致。
+    4. registry : 指定所具体使用的注册中心地址。这里面也就是使用上面在dubbo:registry 中所声
+    mock: 用于在方法调用出现错误时，当做服务降级来统一对外返回结果
+    明的id。
+    4. retries: 用于指定当前服务在执行时出现错误或者超时时的重试机制。
+        1. 注意提供者是否有幂等，否则可能出现数据一致性问题
+        2. 注意提供者是否有类似缓存机制，如出现大面积错误时，可能因为不停重试导致雪崩-->
+    <dubbo:reference id="sayHelloService" interface="com.cc.learn.dubbo.SayHelloService"
+                     registry="zookeeperRegistry" async="true"/>
+</beans>

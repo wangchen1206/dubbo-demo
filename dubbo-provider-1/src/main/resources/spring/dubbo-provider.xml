@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+http://dubbo.apache.org/schema/dubbo
+http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+    <dubbo:application name="dubbo-provider-1" owner="CC">
+        <!--运维qos server配置-->
+        <!--是否启动qos-->
+        <dubbo:parameter key="qos-enable" value="true"></dubbo:parameter>
+        <!--qos端口-->
+        <dubbo:parameter key="qos-port" value="22222"></dubbo:parameter>
+        <!--是否允许远程访问qos server-->
+        <dubbo:parameter key="qos-accept-foreign-ip" value="true"></dubbo:parameter>
+    </dubbo:application>
+    <!--org.apache.dubbo.config.RegistryConfig, 代表该模块所使用的注册中心。一个模块中的服务可以将
+    其注册到多个注册中心上，也可以注册到一个上。后面再service和reference也会引入这个注册中心。
+    1. id : 当当前服务中provider或者consumer中存在多个注册中心时，则使用需要增加该配置。在一
+    些公司，会通过业务线的不同选择不同的注册中心，所以一般都会配置该值。
+    2. address : 当前注册中心的访问地址。
+    3. protocol : 当前注册中心所使用的协议是什么。也可以直接在address 中写入，比如使用
+    zookeeper，就可以写成zookeeper://xx.xx.xx.xx:2181
+    4. timeout : 当与注册中心不再同一个机房时，大多会把该参数延长。-->
+    <dubbo:registry id="zookeeperRegistry" address="zookeeper://127.0.0.1:2181" timeout="10000"/>
+    <!--通信协议 默认dubbo
+    1. id : 在大公司，可能因为各个部门技术栈不同，所以可能会选择使用不同的协议进行交互。这里
+    在多个协议使用时，需要指定。
+    2. name : 指定协议名称。默认使用dubbo-->
+    <dubbo:protocol name="dubbo"/>
+    <bean id="sayHelloService"
+          class="com.cc.learn.dubbo.impl.SayHelloServiceImpl"/>
+
+    <!--对外暴露的服务信息，1. interface : 指定当前需要进行对外暴露的接口是什么。
+    2. ref : 具体实现对象的引用，一般我们在生产级别都是使用Spring去进行Bean托管的，所以这里面
+一般也指的是Spring中的BeanId。
+    3. version : 对外暴露的版本号。不同的版本号，消费者在消费的时候只会根据固定的版本号进行消
+费。
+    4. registry 指明注册中心-->
+    <dubbo:service interface="com.cc.learn.dubbo.SayHelloService"
+                   ref="sayHelloService" registry="zookeeperRegistry"/>
+</beans>
