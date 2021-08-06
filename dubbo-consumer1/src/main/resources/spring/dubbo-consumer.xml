@@ -29,6 +29,6 @@ http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
     4. retries: 用于指定当前服务在执行时出现错误或者超时时的重试机制。
         1. 注意提供者是否有幂等，否则可能出现数据一致性问题
         2. 注意提供者是否有类似缓存机制，如出现大面积错误时，可能因为不停重试导致雪崩-->
-    <dubbo:reference id="helloService" interface="com.cc.api.HelloService"
+    <dubbo:reference id="helloService" interface="com.cc.api.service.HelloService"
                      registry="zookeeperRegistry" version="0.0.2" timeout="4000" retries="2"/>
 </beans>

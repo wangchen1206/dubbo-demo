@@ -20,10 +20,11 @@ public class ConsumerMain {
         SayHelloService sayHelloService = context.getBean(SayHelloService.class);
         while (true){
             System.in.read();
-            String cc = sayHelloService.sayHello("CC", 500);
+            String cc = sayHelloService.sayHello("CC", 3000);
             System.out.println("result: "+cc);
-            Future<Object> future = RpcContext.getContext().getFuture();
-            System.out.println("future result: "+future.get());
+            //异步调用
+//            Future<Object> future = RpcContext.getContext().getFuture();
+//            System.out.println("future result: "+future.get());
         }
     }
 }

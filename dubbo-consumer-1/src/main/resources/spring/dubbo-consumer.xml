@@ -26,9 +26,15 @@ http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
     4. registry : 指定所具体使用的注册中心地址。这里面也就是使用上面在dubbo:registry 中所声
     mock: 用于在方法调用出现错误时，当做服务降级来统一对外返回结果
     明的id。
-    4. retries: 用于指定当前服务在执行时出现错误或者超时时的重试机制。
+    5. retries: 用于指定当前服务在执行时出现错误或者超时时的重试机制。
         1. 注意提供者是否有幂等，否则可能出现数据一致性问题
-        2. 注意提供者是否有类似缓存机制，如出现大面积错误时，可能因为不停重试导致雪崩-->
+        2. 注意提供者是否有类似缓存机制，如出现大面积错误时，可能因为不停重试导致雪崩
+    6. async: 异步调用
+    7. mock: 屏蔽：直接屏蔽掉远程调用，force:return 1234
+             容错：经过调用timeout后，会返回默认值。fail:return CC
+             注解： @Reference(mock="force:return null")-->
+    <!--<dubbo:reference id="sayHelloService" interface="com.cc.learn.dubbo.SayHelloService"
+                     registry="zookeeperRegistry" async="true"/>-->
     <dubbo:reference id="sayHelloService" interface="com.cc.learn.dubbo.SayHelloService"
-                     registry="zookeeperRegistry" async="true"/>
+                     registry="zookeeperRegistry" mock="fail:return CC"/>
 </beans>
